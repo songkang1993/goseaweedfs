@@ -214,6 +214,12 @@ func (c *Seaweed) LookupFileID(fileID string, args url.Values, readonly bool) (f
 		base := *c.master
 		base.Host = u
 		base.Path = fileID
+		query := base.Query()
+		for k, l := range args {
+			for _, v := range l {
+				query.Set(k, v)
+			}
+		}
 		fullURL = base.String()
 	}
 	return
